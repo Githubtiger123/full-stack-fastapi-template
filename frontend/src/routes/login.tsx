@@ -1,9 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  createFileRoute,
-  Link as RouterLink,
-  redirect,
-} from "@tanstack/react-router"
+import { Link as RouterLink } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -20,7 +16,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { PasswordInput } from "@/components/ui/password-input"
-import useAuth, { isLoggedIn } from "@/hooks/useAuth"
+import useAuth from "@/hooks/useAuth"
+import usePageTitle from "@/hooks/usePageTitle"
 
 const formSchema = z.object({
   username: z.email(),
@@ -32,25 +29,9 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export const Route = createFileRoute("/login")({
-  component: Login,
-  beforeLoad: async () => {
-    if (isLoggedIn()) {
-      throw redirect({
-        to: "/",
-      })
-    }
-  },
-  head: () => ({
-    meta: [
-      {
-        title: "Log In - FastAPI Cloud",
-      },
-    ],
-  }),
-})
-
 function Login() {
+  usePageTitle("Log In - FastAPI Cloud")
+
   const { loginMutation } = useAuth()
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -66,7 +47,6 @@ function Login() {
     if (loginMutation.isPending) return
     loginMutation.mutate(data)
   }
-
 
   return (
     <AuthLayout>
@@ -141,3 +121,5 @@ function Login() {
     </AuthLayout>
   )
 }
+
+export default Login

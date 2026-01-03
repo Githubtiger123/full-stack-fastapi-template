@@ -1,5 +1,4 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute } from "@tanstack/react-router"
 import { Suspense } from "react"
 
 import { type UserPublic, UsersService } from "@/client"
@@ -8,6 +7,7 @@ import { columns, type UserTableData } from "@/components/Admin/columns"
 import { DataTable } from "@/components/Common/DataTable"
 import PendingUsers from "@/components/Pending/PendingUsers"
 import useAuth from "@/hooks/useAuth"
+import usePageTitle from "@/hooks/usePageTitle"
 
 function getUsersQueryOptions() {
   return {
@@ -15,17 +15,6 @@ function getUsersQueryOptions() {
     queryKey: ["users"],
   }
 }
-
-export const Route = createFileRoute("/_layout/admin")({
-  component: Admin,
-  head: () => ({
-    meta: [
-      {
-        title: "Admin - FastAPI Cloud",
-      },
-    ],
-  }),
-})
 
 function UsersTableContent() {
   const { user: currentUser } = useAuth()
@@ -48,6 +37,8 @@ function UsersTable() {
 }
 
 function Admin() {
+  usePageTitle("Admin - FastAPI Cloud")
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -63,3 +54,5 @@ function Admin() {
     </div>
   )
 }
+
+export default Admin

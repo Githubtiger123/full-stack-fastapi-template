@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router"
-
 import ChangePassword from "@/components/UserSettings/ChangePassword"
 import DeleteAccount from "@/components/UserSettings/DeleteAccount"
 import UserInformation from "@/components/UserSettings/UserInformation"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import useAuth from "@/hooks/useAuth"
+import usePageTitle from "@/hooks/usePageTitle"
 
 const tabsConfig = [
   { value: "my-profile", title: "My profile", component: UserInformation },
@@ -12,18 +11,9 @@ const tabsConfig = [
   { value: "danger-zone", title: "Danger zone", component: DeleteAccount },
 ]
 
-export const Route = createFileRoute("/_layout/settings")({
-  component: UserSettings,
-  head: () => ({
-    meta: [
-      {
-        title: "Settings - FastAPI Cloud",
-      },
-    ],
-  }),
-})
-
 function UserSettings() {
+  usePageTitle("Settings - FastAPI Cloud")
+
   const { user: currentUser } = useAuth()
   const finalTabs = currentUser?.is_superuser
     ? tabsConfig.slice(0, 3)
@@ -59,3 +49,5 @@ function UserSettings() {
     </div>
   )
 }
+
+export default UserSettings

@@ -1,10 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
-import {
-  createFileRoute,
-  Link as RouterLink,
-  redirect,
-} from "@tanstack/react-router"
+import { Link as RouterLink } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -20,8 +16,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { LoadingButton } from "@/components/ui/loading-button"
-import { isLoggedIn } from "@/hooks/useAuth"
 import useCustomToast from "@/hooks/useCustomToast"
+import usePageTitle from "@/hooks/usePageTitle"
 import { handleError } from "@/utils"
 
 const formSchema = z.object({
@@ -30,25 +26,9 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>
 
-export const Route = createFileRoute("/recover-password")({
-  component: RecoverPassword,
-  beforeLoad: async () => {
-    if (isLoggedIn()) {
-      throw redirect({
-        to: "/",
-      })
-    }
-  },
-  head: () => ({
-    meta: [
-      {
-        title: "Recover Password - FastAPI Cloud",
-      },
-    ],
-  }),
-})
-
 function RecoverPassword() {
+  usePageTitle("Recover Password - FastAPI Cloud")
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -128,3 +108,5 @@ function RecoverPassword() {
     </AuthLayout>
   )
 }
+
+export default RecoverPassword

@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "@tanstack/react-router"
+import { Link as RouterLink } from "react-router-dom"
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"

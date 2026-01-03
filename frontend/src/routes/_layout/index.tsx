@@ -1,19 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router"
-
 import useAuth from "@/hooks/useAuth"
-
-export const Route = createFileRoute("/_layout/")({
-  component: Dashboard,
-  head: () => ({
-    meta: [
-      {
-        title: "Dashboard - FastAPI Cloud",
-      },
-    ],
-  }),
-})
+import usePageTitle from "@/hooks/usePageTitle"
 
 function Dashboard() {
+  usePageTitle("Dashboard - FastAPI Cloud")
+
   const { user: currentUser } = useAuth()
 
   return (
@@ -29,3 +19,5 @@ function Dashboard() {
     </div>
   )
 }
+
+export default Dashboard

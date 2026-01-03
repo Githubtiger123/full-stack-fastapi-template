@@ -1,5 +1,4 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { createFileRoute } from "@tanstack/react-router"
 import { Search } from "lucide-react"
 import { Suspense } from "react"
 
@@ -8,6 +7,7 @@ import { DataTable } from "@/components/Common/DataTable"
 import AddItem from "@/components/Items/AddItem"
 import { columns } from "@/components/Items/columns"
 import PendingItems from "@/components/Pending/PendingItems"
+import usePageTitle from "@/hooks/usePageTitle"
 
 function getItemsQueryOptions() {
   return {
@@ -15,17 +15,6 @@ function getItemsQueryOptions() {
     queryKey: ["items"],
   }
 }
-
-export const Route = createFileRoute("/_layout/items")({
-  component: Items,
-  head: () => ({
-    meta: [
-      {
-        title: "Items - FastAPI Cloud",
-      },
-    ],
-  }),
-})
 
 function ItemsTableContent() {
   const { data: items } = useSuspenseQuery(getItemsQueryOptions())
@@ -54,6 +43,8 @@ function ItemsTable() {
 }
 
 function Items() {
+  usePageTitle("Items - FastAPI Cloud")
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -67,3 +58,5 @@ function Items() {
     </div>
   )
 }
+
+export default Items

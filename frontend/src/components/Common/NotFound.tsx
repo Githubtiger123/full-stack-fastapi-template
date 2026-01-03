@@ -1,7 +1,10 @@
-import { Link } from "@tanstack/react-router"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import usePageTitle from "@/hooks/usePageTitle"
 
 const NotFound = () => {
+  usePageTitle("Page not found - FastAPI Cloud")
+
   return (
     <div
       className="flex min-h-screen items-center justify-center flex-col p-4"

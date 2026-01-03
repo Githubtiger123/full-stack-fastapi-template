@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useNavigate } from "@tanstack/react-router"
+import { useNavigate } from "react-router-dom"
 
 import {
   type Body_login_login_access_token as AccessToken,
@@ -30,7 +30,7 @@ const useAuth = () => {
     mutationFn: (data: UserRegister) =>
       UsersService.registerUser({ requestBody: data }),
     onSuccess: () => {
-      navigate({ to: "/login" })
+      navigate("/login")
     },
     onError: handleError.bind(showErrorToast),
     onSettled: () => {
@@ -48,14 +48,14 @@ const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate({ to: "/" })
+      navigate("/")
     },
     onError: handleError.bind(showErrorToast),
   })
 
   const logout = () => {
     localStorage.removeItem("access_token")
-    navigate({ to: "/login" })
+    navigate("/login")
   }
 
   return {
