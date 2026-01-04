@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, type MenuProps } from 'antd';
 import Menuconfig from "../../config";
 import * as Icons from '@ant-design/icons';
+import { useAppStore } from "@/stores/appStore";
 
 const { Sider } = Layout;
 
@@ -30,11 +31,8 @@ const buildMenuItems = (items: MenuConfigItem[]): MenuProps['items'] => {
 
 const menuItems = buildMenuItems(Menuconfig as MenuConfigItem[]);
 
-interface AppSiderProps {
-  collapsed: boolean;
-}
-
-const AppSider: React.FC<AppSiderProps> = ({ collapsed }) => {
+const AppSider: React.FC = () => {
+  const collapsed = useAppStore((s) => s.sidebarCollapsed);
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className={`sidebar-title ${collapsed ? 'collapsed' : ''}`}>

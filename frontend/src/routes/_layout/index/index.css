@@ -1,0 +1,48 @@
+.dashboard-page {
+  /* max-width: 1200px;
+  margin: 0 auto; */
+  padding: 12px;
+}
+
+.dashboard-row {
+  width: 100%;
+}
+
+.dashboard-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #e8e8e8;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.login-info {
+  margin-top: 16px;
+}
+
+.login-info p {
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.5;
+}
+
+.login-info p:last-child {
+  margin-bottom: 0;
+}
+
+.login-info p span {
+  color: rgba(6, 6, 6, 0.779);
+  font-weight: 500;
+  margin-left: 8px;
+}
