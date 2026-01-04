@@ -8,14 +8,16 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { ApiError, OpenAPI } from "./client"
+// import { ApiError, OpenAPI } from "./client"
+import { OpenAPI } from "./client"
 import ErrorComponent from "./components/Common/ErrorComponent"
 import NotFound from "./components/Common/NotFound"
-import { RequireAuth, RequireGuest } from "./components/Common/RouteGuards"
+// import { RequireAuth, RequireGuest } from "./components/Common/RouteGuards"
+import { RequireGuest } from "./components/Common/RouteGuards"
 import { ThemeProvider } from "./components/theme-provider"
 import { Toaster } from "./components/ui/sonner"
 import "./index.css"
-import Layout from "./routes/_layout"
+import MainLayout from "./routes/_layout"
 import Admin from "./routes/_layout/admin"
 import Dashboard from "./routes/_layout/index"
 import Items from "./routes/_layout/items"
@@ -30,11 +32,12 @@ OpenAPI.TOKEN = async () => {
   return localStorage.getItem("access_token") || ""
 }
 
-const handleApiError = (error: Error) => {
-  if (error instanceof ApiError && [401, 403].includes(error.status)) {
-    localStorage.removeItem("access_token")
-    window.location.href = "/login"
-  }
+const handleApiError = (_error: Error) => {
+  // 注释掉未登录跳转，允许直接访问
+  // if (error instanceof ApiError && [401, 403].includes(error.status)) {
+  //   localStorage.removeItem("access_token")
+  //   window.location.href = "/login"
+  // }
 }
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -48,11 +51,13 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <RequireAuth>
-        <Layout />
-      </RequireAuth>
-    ),
+    // 注释掉 RequireAuth，允许未登录直接访问
+    // element: (
+    //   <RequireAuth>
+    //     <Layout />
+    //   </RequireAuth>
+    // ),
+    element: <MainLayout />,
     errorElement: <ErrorComponent />,
     children: [
       { index: true, element: <Dashboard /> },

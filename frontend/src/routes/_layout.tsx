@@ -1,29 +1,49 @@
-import { Outlet } from "react-router-dom"
-
-import { Footer } from "@/components/Common/Footer"
-import AppSidebar from "@/components/Sidebar/AppSidebar"
+import React, { useState } from 'react';
 import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
-function Layout() {
-  return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1 text-muted-foreground" />
-        </header>
-        <main className="flex-1 p-6 md:p-8">
-          <div className="mx-auto max-w-7xl">
-            <Outlet />
-          </div>
-        </main>
-        <Footer />
-      </SidebarInset>
-    </SidebarProvider>
-  )
-}
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons';
+import { Button, Layout, theme } from 'antd';
+import AppSider from '@/components/Common/AppSider';
 
-export default Layout
+const { Header, Content } = Layout;
+
+const MainLayout: React.FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  return (
+    <Layout style={{ height: '100vh' }}>
+      <AppSider collapsed={collapsed} />
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+            overflow: 'auto',
+          }}
+        >
+          Content
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default MainLayout;

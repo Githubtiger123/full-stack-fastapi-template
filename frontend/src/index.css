@@ -122,3 +122,58 @@
     cursor: pointer;
   }
 }
+
+/* Layout 标题样式 */
+.sidebar-title {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 16px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-title.collapsed {
+  font-size: 16px;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* 侧边栏样式 - 增加宽度 */
+.ant-layout-sider {
+  width: 260px !important;
+  min-width: 260px !important;
+  max-width: 260px !important;
+  flex: 0 0 260px !important;
+}
+
+.ant-layout-sider-collapsed {
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+  flex: 0 0 80px !important;
+}
+
+/* 侧边栏菜单文字大小 */
+.ant-menu-dark .ant-menu-item,
+.ant-menu-dark .ant-menu-submenu-title {
+  font-size: 16px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  padding-left: 24px !important;
+}
+
+.ant-menu-dark .ant-menu-item-icon {
+  font-size: 18px !important;
+}
+
+/* 内容区域样式 - 增加高度和间距 */
+.ant-layout-content {
+  min-height: calc(100vh - 64px) !important;
+  height: calc(100vh - 64px) !important;
+}
