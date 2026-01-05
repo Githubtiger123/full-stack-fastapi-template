@@ -26,11 +26,15 @@ import Login from "./routes/login"
 import RecoverPassword from "./routes/recover-password"
 import ResetPassword from "./routes/reset-password"
 import SignUp from "./routes/signup"
+import { setupMockInterceptor } from "./mocks/interceptor"
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL
 OpenAPI.TOKEN = async () => {
   return localStorage.getItem("access_token") || ""
 }
+
+// 设置 Mock 拦截器
+setupMockInterceptor(OpenAPI)
 
 const handleApiError = (_error: Error) => {
   // 注释掉未登录跳转，允许直接访问
